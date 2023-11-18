@@ -128,7 +128,7 @@ function scorerPrompt() {
                   2- ${scoringAlgorithms[2].description}
                 `)
    let scorerSelection = input.question(`enter 0, 1, or 2: `);
-   console.log(`The score for '${wordInput}': ${scoringAlgorithms[scorerSelection].scoringFunctions(wordInput)}`);
+   console.log(`The score for '${wordInput}': ${scoringAlgorithms[scorerSelection].scorerFunction(wordInput)}`);
 }
 
 function transform(obj) {
