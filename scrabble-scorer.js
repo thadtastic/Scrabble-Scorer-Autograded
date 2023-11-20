@@ -12,35 +12,6 @@ const oldPointStructure = {
    10: ['Q', 'Z']
 };
 
-// const newPointStructure = {
-//    A:1,
-//    B:3,
-//    C:3,
-//    D:2,
-//    E:1,
-//    F:4,
-//    G:2,
-//    H:4,
-//    I:1,
-//    J:8,
-//    K:5,
-//    L:1,
-//    M:3,
-//    N:1,
-//    O:1,
-//    P:3,
-//    Q:10,
-//    R:1,
-//    S:1,
-//    T:1,
-//    U:1,
-//    V:4,
-//    W:4,
-//    X:8,
-//    Y:4,
-//    Z:10
-// };
-
 let newPointStructure = transform(oldPointStructure);
 // your job is to finish writing these functions and variables that we've named //
 // don't change the names or your program won't work as expected. //
@@ -62,8 +33,9 @@ function oldScrabbleScorer(word) {
 }
 
 function initialPrompt() {
-   wordInput = input.question("Let's play some scrabble! Enter a word: ");
+  let wordInput = input.question("Let's play some scrabble! Enter a word: ");
    //console.log(oldScrabbleScorer(wordInput));
+   return wordInput;
 };
 let simpleScorer = function (word) {
    word = word.toUpperCase()
@@ -71,7 +43,7 @@ let simpleScorer = function (word) {
    word = word.trim().split(" ").join()
    simpleLetterPoints += word.length
    return simpleLetterPoints;
-}
+};
 
 let vowelBonusScorer = function (word) {
    word = word.toUpperCase()
@@ -84,23 +56,18 @@ let vowelBonusScorer = function (word) {
          vowelBonusPoints += 1
       }
    }
-   return vowelBonusPoints
-}
+   return vowelBonusPoints;
+};
 
 let scrabbleScorer = function (word) {
    word = word.toLowerCase()
    let scrabblePoints = 0;
-   for (let item in newPointStructure) {
-      for(let i=0;i<word.length; i++){
-         if (word[i].includes(item)) {
-               scrabblePoints += newPointStructure[item]
-   
-            }
-         
-      }
+    
+      for (let i = 0; i < word.length; i++) {
+            scrabblePoints += newPointStructure[word[i]]
    }
    return scrabblePoints;
-}
+};
 
 
 const scoringAlgorithms = [
@@ -128,7 +95,7 @@ function scorerPrompt() {
                   2- ${scoringAlgorithms[2].description}
                 `)
    let scorerSelection = input.question(`enter 0, 1, or 2: `);
-   console.log(`The score for '${wordInput}': ${scoringAlgorithms[scorerSelection].scorerFunction(wordInput)}`);
+  return scorerSelection;
 }
 
 function transform(obj) {
@@ -136,20 +103,21 @@ function transform(obj) {
    for (let item in obj) {
       for (let i = 0; i < obj[item].length; i++) {
          newObj[obj[item][i].toLowerCase()] = Number(item);
-
+         
       }//add key/value pair to an object within second loop
 
    }
    return newObj;
-};
+}
 
 
 function runProgram() {
-   //console.log(transform(oldPointStructure));
-   //console.log(newPointStructure);
-   initialPrompt();
-   scorerPrompt();
-
+   
+   let wordInput = initialPrompt();
+   let numSelection = scorerPrompt();
+   console.log(`The score for '${wordInput}': ${scoringAlgorithms[numSelection].scorerFunction(wordInput)}`);
+   
+   
 }
 
 
